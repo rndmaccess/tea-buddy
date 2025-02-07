@@ -26,7 +26,7 @@ def write_button(frame, button, line):
         frame.update_idletasks()
         frame.after(100)
 
-    # Keep all the labels we add to the screen so we can clear them later!
+    # Keep all the buttons we add to the screen so we can clear them later!
     object_list.append(button)
     return button
 
