@@ -127,7 +127,7 @@ def make_custom_tea(frame):
     new_window.resizable(False, False)
     new_window.geometry("400x200")
 
-    write_text(new_window, "Number of seconds: ", False)
+    write_text(new_window, "Enter number of minutes: ", False)
     entry = tk.Entry(new_window, font=("Arial", 15))
     entry.pack(side="top", anchor="center", expand=True)
 
@@ -137,7 +137,7 @@ def make_custom_tea(frame):
     new_window.mainloop()
 
 def submit_input(frame, new_window, entry):
-    secs = int(entry.get())
+    secs = int(float(entry.get()) * 60)
     new_window.destroy()
     display_timing_text(frame=frame, tea_type="Custom Tea", total_secs=secs)
 
