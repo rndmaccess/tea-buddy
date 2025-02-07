@@ -84,37 +84,37 @@ def display_welcome_text(frame):
     neon_green = "#228B22"
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Black Tea", total_secs=300),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, black_tea)
 
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Green Tea", total_secs=180),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, green_tea)
 
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="White Tea", total_secs=180),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, white_tea)
 
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Fruit Tea", total_secs=300),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, fruit_tea)
 
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Herbal Tea", total_secs=300),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, herbal_tea)
 
     button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
                        command=lambda: make_custom_tea(frame=frame),
-                       highlightbackground="#767674")
+                       highlightbackground="#767674", width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, custom_tea)
 
