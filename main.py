@@ -127,19 +127,31 @@ def make_custom_tea(frame):
     new_window.resizable(False, False)
     new_window.geometry("400x200")
 
-    write_text(new_window, "Enter number of minutes: ", False)
-    entry = tk.Entry(new_window, font=("Arial", 15))
-    entry.pack(side="top", anchor="center", expand=True)
+    write_text(new_window, "Minutes: ", False)
+    min_entry = tk.Entry(new_window, font=("Arial", 15))
+    min_entry.pack(side="top", anchor="center", expand=True)
+    write_text(new_window, "Seconds: ", False)
+    sec_entry = tk.Entry(new_window, font=("Arial", 15))
+    sec_entry.pack(side="top", anchor="center", expand=True)
 
-    button = tk.Button(new_window, text="Submit", command=lambda: submit_input(frame=frame, new_window=new_window, entry=entry))
+    button = tk.Button(new_window, text="Submit", command=lambda: submit_input(frame=frame, new_window=new_window,
+                                                                               entry_min=min_entry, entry_sec=sec_entry))
     button.pack()
 
     new_window.mainloop()
 
-def submit_input(frame, new_window, entry):
-    secs = int(float(entry.get()) * 60)
+def submit_input(frame, new_window, entry_min, entry_sec):
+    mins = 0
+    secs = 0
+
+    if entry_min.get():
+        mins = int(entry_min.get())
+    if entry_sec.get():
+        secs = int(entry_sec.get())
+
+    total_secs = (mins * 60) + int(secs)
     new_window.destroy()
-    display_timing_text(frame=frame, tea_type="Custom Tea", total_secs=secs)
+    display_timing_text(frame=frame, tea_type="Custom Tea", total_secs=total_secs)
 
 def display_timing_text(frame, tea_type, total_secs):
     clear_screen()
