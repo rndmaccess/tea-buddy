@@ -141,7 +141,8 @@ def make_custom_tea(frame):
     new_window.resizable(False, False) # Make the popup window not resizable!
     new_window.geometry("400x200")
 
-    # Add the minutes box and seconds box to the middle of the screen along with text for each box in the new window!
+    # Add the minutes input box and seconds input box to the middle of the screen along with text
+    # for each box in the new window!
     write_text(new_window, "Minutes: ", False)
     min_entry = tk.Entry(new_window, font=("Arial", 15))
     min_entry.pack(side="top", anchor="center", expand=True)
