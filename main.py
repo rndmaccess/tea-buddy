@@ -173,14 +173,14 @@ def submit_input(frame, new_window, entry_min, entry_sec):
 
 # Display the timing text and start the timer!
 def display_timing_text(frame, tea_type, total_secs):
-    clear_screen()
+    clear_screen() # Clear the all elements from the screen so we can start writing the timing text!
     line_one = "> " + tea_type
     line_two = "Timing your " + tea_type + "!"
 
     write_text(frame, line_one)
     write_text(frame, line_two)
     start_timer(frame, total_secs)
-    clear_screen()
+    clear_screen() # Clear the timing text so we can write the finish text!
     display_finish_text(frame)
 
 # Once our tea is done this will display the finishing text!
