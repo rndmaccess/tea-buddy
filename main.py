@@ -1,11 +1,13 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-object_list = list()
+OBJECT_LIST = list()
+BLACK = "#111111"
+NEON_GREEN = "#228B22"
+DARK_LIGHT_GRAY = "#767674"
 
 # Write an immutable label to the screen!
 def write_text(frame, line, anchor_nw=True):
-    neon_green = "#228B22"
-    label = tk.Label(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15))
+    label = tk.Label(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15))
 
     # Whether to anchor the text to the north-west side of the screen (top-left)
     if anchor_nw:
@@ -20,8 +22,26 @@ def write_text(frame, line, anchor_nw=True):
         frame.after(100) # Wait 100 milliseconds before displaying the next letter!
 
     # Keep all the labels we add to the screen so we can clear them later!
-    object_list.append(label)
+    OBJECT_LIST.append(label)
     return label
+
+def submit_with_enter(event):
+    widget = event.widget
+    if isinstance(widget, tk.Button):
+        widget.invoke()
+        print("Pressed Enter")
+
+def enter_button(event):
+    event.widget.config(fg=BLACK)
+
+def leave_button(event):
+    event.widget.config(fg=NEON_GREEN)
+
+def on_focus_in(event):
+    event.widget.config(relief=tk.SUNKEN, bg="lightgray", fg=BLACK)
+
+def on_focus_out(event):
+    event.widget.config(relief=tk.RAISED, bg=BLACK, fg=NEON_GREEN)
 
 # Write a button to the screen (This is used to display each tea option)
 def write_button(frame, button, line):
@@ -32,11 +52,21 @@ def write_button(frame, button, line):
         frame.after(100) # Wait 100 milliseconds before displaying the next letter!
 
     # Keep all the buttons we add to the screen so we can clear them later!
-    object_list.append(button)
+    OBJECT_LIST.append(button)
+
+    # Bind each key to make the buttons more accessible by allowing the user to navigate the interface
+    # with the tab and enter keys!
+    button.bind("<FocusIn>", on_focus_in)
+    button.bind("<FocusOut>", on_focus_out)
+    button.bind("<Return>", submit_with_enter)
+
+    # This makes sure that our black is used when hovering over buttons!
+    button.bind("<Enter>", enter_button)
+    button.bind("<Leave>", leave_button)
     return button
 
 def clear_screen():
-    for obj in object_list:
+    for obj in OBJECT_LIST:
         obj.destroy()
 
 # This method is used to both increase the progress bar and count down the timer
@@ -76,7 +106,7 @@ def init_bar(frame):
     progress.pack(side="top", anchor="nw")
 
     # Keep all the progress bars we add to the screen so we can clear them later!
-    object_list.append(progress)
+    OBJECT_LIST.append(progress)
     return progress
 
 def display_welcome_text(frame):
@@ -94,49 +124,47 @@ def display_welcome_text(frame):
     write_text(frame, line_two)
 
     # Write each tea option to the screen!
-    neon_green = "#228B22"
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Black Tea", total_secs=300),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, black_tea)
 
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Green Tea", total_secs=180),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, green_tea)
 
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="White Tea", total_secs=180),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, white_tea)
 
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Fruit Tea", total_secs=300),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, fruit_tea)
 
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: display_timing_text(frame=frame, tea_type="Herbal Tea", total_secs=300),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, herbal_tea)
 
-    button = tk.Button(frame, text="", fg=neon_green, bg='#111111', font=("Arial", 15),
+    button = tk.Button(frame, text="", fg=NEON_GREEN, bg=BLACK, font=("Arial", 15),
                        command=lambda: make_custom_tea(frame=frame),
-                       highlightbackground="#767674", width=20)
+                       highlightbackground=DARK_LIGHT_GRAY, width=20)
     button.pack(side="top", anchor="nw")
     write_button(frame, button, custom_tea)
 
-def make_custom_tea(frame):
-    black_bg = '#111111'
 
+def make_custom_tea(frame):
     # Make a new window for inputting the minutes and seconds for the custom tea!
     new_window = tk.Toplevel(frame)
-    new_window.configure(background=black_bg)
+    new_window.configure(background=BLACK)
     new_window.title("Enter Tea Time")
     new_window.resizable(False, False) # Make the popup window not resizable!
     new_window.geometry("400x200")
@@ -153,9 +181,11 @@ def make_custom_tea(frame):
     # Add a submission button for submitting the custom time!
     button = tk.Button(new_window, text="Submit", command=lambda: submit_input(frame=frame, new_window=new_window,
                                                                                entry_min=min_entry, entry_sec=sec_entry))
+    button.bind("<Return>", submit_with_enter) # If we hit enter we can submit the entries also!
     button.pack()
 
     new_window.mainloop()
+    frame.mainloop()
 
 def submit_input(frame, new_window, entry_min, entry_sec):
     mins = 0
